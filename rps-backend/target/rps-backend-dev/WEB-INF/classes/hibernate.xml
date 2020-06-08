@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/planification</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="dania.app.web.entities.CalendarEntity"/>
+        <mapping class="dania.app.web.entities.MemberEntity"/>
+        <mapping class="dania.app.web.entities.MemberPositionEntity"/>
+        <mapping class="dania.app.web.entities.ParametersEntity"/>
+        <mapping class="dania.app.web.entities.ProjectEntity"/>
+        <mapping class="dania.app.web.entities.ProjectPositionEntity"/>
+        <mapping class="dania.app.web.entities.UserEntity"/>
+        <mapping class="dania.app.web.entities.MemberPositionViewEntity"/>
+        <mapping class="dania.app.web.entities.ParameterPercentViewEntity"/>
+        <mapping class="dania.app.web.entities.ParameterPositionViewEntity"/>
+        <mapping class="dania.app.web.entities.ParameterStatusViewEntity"/>
+        <mapping class="dania.app.web.entities.ParameterTechViewEntity"/>
+    </session-factory>
+</hibernate-configuration>

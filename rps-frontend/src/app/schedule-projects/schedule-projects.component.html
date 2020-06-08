@@ -1,0 +1,61 @@
+<app-menu></app-menu>
+
+<div id="mainContainerTableProj">
+    <table class="column-fixed">
+        <tr>
+            <div class="twenty-percent">
+                <mat-form-field>
+                    <mat-select [(ngModel)]="quarterYearModel" placeholder="{{ 'Year/Quarter' | translate }}">
+                        <mat-option *ngFor="let k of keysCalendar" [value]="k">{{k}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="fifty-percent">
+                <h3 id="title" class="white-text font-weight-bold text-uppercase mb-0">{{ "Projects Graphic" |
+                    translate }} </h3>
+            </div>
+            <div class="twenty-percent">
+                <input type="search" [(ngModel)]="searchText" (ngModelChange)="search()" id="search"
+                       class="form-control" placeholder="{{'Search' | translate}}">
+            </div>
+
+        </tr>
+    </table>
+
+    <table *ngIf="!!calendar" style="margin-top: 6rem;">
+        <thead id="tableHeader">
+        <tr>
+            <th class="header"> {{ "Projects" | translate }}</th>
+            <th class="projectName" *ngFor="let cal of calendar[quarterYearModel]">{{cal.bop | date: 'dd/MM'}}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr [class.spacing-tr-border]="isInstanceofStr(rowDisplayed)" class="trBody"
+            *ngFor="let  rowDisplayed of finalCollectionDataToDisplay">
+            <td class="projectName">
+                <strong class="dropdown-toggle pointer"
+                        *ngIf="isInstanceofStr(rowDisplayed) && getAllPositionsFor(rowDisplayed).length > 0"
+                        (click)="displayPositionsOnClickProject(rowDisplayed)">{{rowDisplayed }}</strong>
+                <span *ngIf="isInstanceofStr(rowDisplayed) && getAllPositionsFor(rowDisplayed).length == 0"
+                      (click)="displayPositionsOnClickProject(rowDisplayed)">{{rowDisplayed }}</span>
+                <span *ngIf="!isInstanceofStr(rowDisplayed)">
+                    {{getTotalOfProjectPositionsFor(rowDisplayed.projectName, rowDisplayed.positionDescription)}}
+                    {{rowDisplayed.positionDescription }}
+                </span>
+
+                {{ resetId() }}
+            </td>
+            <td class="projectColor" id="{{getIdOfTheDisplayedColumn(rowDisplayed)}}"
+                *ngFor="let cal of calendar[quarterYearModel]">
+                <div *ngIf="!isInstanceofStr(rowDisplayed)" id="tooltipDetailsForProjects"
+                     ngbTooltip="{{getTooltipDetailsForProjects(rowDisplayed.projectName, rowDisplayed.positionDescription, cal, getIdOfTheDisplayedColumn(rowDisplayed))}}"
+                     style="display: block; height: 100%; position: absolute; top: 0; left: 0">
+                </div>
+                <div *ngIf="isInstanceofStr(rowDisplayed)" style="padding: 5px;"></div>
+                {{getColor(rowDisplayed, rowDisplayed.positionDescription, cal, getIdOfTheDisplayedColumn(rowDisplayed)) | async}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

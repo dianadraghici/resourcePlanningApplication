@@ -1,0 +1,75 @@
+#mainContainerTableProj {
+  padding: 1%;
+  margin-right: 5%;
+}
+#search {
+  width: 65%;
+  margin-left: 20%;
+}
+#title{
+  margin-left: 11rem;
+  text-align: center;
+  cursor: default;
+}
+.header {
+  table-layout: fixed;
+  text-align: center;
+  padding-bottom: 0.7rem !important;
+
+}
+.mat-form-field {
+  float: left;
+  margin-left: 60%;
+  width: 100px;
+  text-align-last: center;
+  cursor: default;
+}
+#tableHeader{
+  overflow: hidden;
+  background-color: white;
+  table-layout: fixed;
+}
+.column-fixed{
+  margin-left: 5%;
+  margin-right: 10%;
+  margin-top: 0;
+  background-color: white;
+  overflow: hidden;
+  border-bottom: 3rem solid white;
+  border-top: 2rem solid white;
+}
+.members{
+  width: 1%;
+  cursor: default;
+  position: relative;
+}
+table{
+  width: 90%;
+}
+.trBody{
+  border-top: 5px solid white;
+  border-bottom: 10px solid white;
+  width: 100%;
+  margin-top: 10%;
+}
+
+td{
+  padding: 3px !important;
+}
+
+/*used when names are very long*/
+#else {
+  display: block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*tool tip over names*/
+::ng-deep.tooltip-inner {
+  background-color: #ffffff !important;
+}
+#tooltipDetailsForMembers{
+  max-width: 200px !important;
+  width: 100%;
+}

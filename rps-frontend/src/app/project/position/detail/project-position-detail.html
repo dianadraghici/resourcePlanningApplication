@@ -1,0 +1,141 @@
+<div class="errorHandler">
+    <img id="errorHandler" *ngIf="errorIsOcured"
+         src="assets/img/validationError.png" height="20">
+    <img id="blankErrorHandler" *ngIf="!errorIsOcured"
+         src="assets/img/pinkBlank.png" height="20">
+    <output *ngIf="errorIsOcured">
+        <div style="color: red" *ngIf="errorMessagesArray.length > 0">
+            <div *ngFor="let e of errorMessagesArray">{{e}}</div>
+        </div>
+        <div *ngIf="errorMessage != undefined">{{errorMessage}}</div>
+    </output>
+
+</div>
+<table class="table table-responsive-sm">
+    <tr>
+        <td>{{ "Position" | translate }}</td>
+        <td>{{ projectPosition.positionDescription }}</td>
+        <td>
+            <div class="buttonsInline">
+                <!--Open modal for confirmation on member deactivation-->
+                <p *ngIf="!positionEditing" data-placement="top" data-toggle="tooltip"
+                   title="{{ 'Delete' | translate }}">
+                    <button class="button"
+                            data-title="{{ 'Delete' | translate }}">
+                        <fa [name]="'minus-square'" (click)="openModal(content)">
+                            <ng-template #content let-modal>
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{ "AreYouSureDeleteProjectPosition" | translate }}</h4>
+                                    <button id="closeButton" class="close" aria-label="Close"
+                                            (click)="modal.dismiss('Cross click')">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <button type="button" class="btn btn-light" id="buttonYES"
+                                            (click)="modal.close('Close click'); delete()">{{ "YES" | translate }}
+                                    </button>
+                                    <button type="button" class="btn btn-light" id="buttonNO"
+                                            (click)="modal.close('Close click')">{{ "NO" | translate }}
+                                    </button>
+                                </div>
+                            </ng-template>
+                        </fa>
+                    </button>
+                </p>
+                <p *ngIf="!positionEditing" data-placement="top" data-toggle="tooltip"
+                   title="{{ 'Edit position' | translate }}">
+                    <button class="button" data-title="{{ 'Edit' | translate }}"
+                            (click)="positionEditing = !positionEditing;">
+                        <img src="assets/img/edit.PNG" width="24" height="20">
+                    </button>
+                </p>
+                <p *ngIf="positionEditing" data-placement="top" data-toggle="tooltip"
+                   title="{{ 'Edit position' | translate }}">
+                    <button class="btn" data-title="{{ 'Save' | translate }}"
+                            (click)="save($event); positionEditing = !positionEditing;">{{'Save' | translate}}
+                    </button>
+                </p>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>{{ "Percentage" | translate }}</td>
+        <td>
+            <select id="percentageTextBox" name="percentageTextBox"
+                    [(ngModel)]="projectPosition.percentId" #percentageTextBox="ngModel" class="form-control"
+                    required minlength="1" [attr.disabled]="positionEditing?null:''">
+                <option></option>
+                <option *ngFor="let s of percentList" value={{s.id}}>{{s.description}} %</option>
+            </select>
+        </td>
+        <img class="image" id="projectPositionPercentajeError"
+             *ngIf="projectPosition.percentDescription == ''"
+             [ngbTooltip]="errorMessagesConstants.PROJECT_POSITION_PERCENT"
+             src="assets/img/validationError.png"
+             height="20">
+    </tr>
+
+    <tr>
+        <td>{{ "Start Date" | translate }}</td>
+        <td>
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="projectStartDate" id="projectStartDate"
+                           ngbDatepicker #dstart="ngbDatepicker"
+                           navigation="select" showWeekdays="true"
+                           showWeekNumbers="true" outsideDays="visible"
+                           [(ngModel)]="startDateModel"
+                           [disabled]="positionEditing?null:'disabled'">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="dstart.toggle()"
+                                type="button">
+                            <fa name="calendar"></fa>
+                        </button>
+                        <img class="image" id="projectPositionStartDateError"
+                             *ngIf="startDateModel == undefined"
+                             [ngbTooltip]="errorMessagesConstants.PROJECT_POSITION_START_DATE"
+                             src="assets/img/validationError.png"
+                             height="20">
+                    </div>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <td>{{ "End Date" | translate }}</td>
+        <td>
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                           name="projectEndDate" id="projectEndDate"
+                           ngbDatepicker #dend="ngbDatepicker"
+                           navigation="select" showWeekdays="true"
+                           showWeekNumbers="true" outsideDays="visible"
+                           [(ngModel)]="endDateModel"
+                           [disabled]="positionEditing?null:'disabled'">
+
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="dend.toggle()"
+                                type="button">
+                            <fa name="calendar"></fa>
+                        </button>
+                        <img class="image" style="float:right;"
+                             *ngIf="endDateModel == undefined"
+                             [ngbTooltip]="errorMessagesConstants.PROJECT_POSITION_END_DATE"
+                             src="assets/img/validationError.png"
+                             height="20">
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>{{ "Number of positions" | translate }}</td>
+        <td><input type="text" [(ngModel)]="projectPosition.numberPositions" [attr.disabled]="positionEditing?null:''">
+        </td>
+    </tr>
+</table>

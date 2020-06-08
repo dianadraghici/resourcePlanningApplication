@@ -1,0 +1,408 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.css';
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    line-height: 1;
+}
+.popup-title {
+    margin: -.5rem -0rem auto;
+    cursor: default;
+}
+
+.jumbotron {
+    background-color: white !important;
+}
+
+.tooltip {
+    z-index: 9999 !important;
+}
+
+.tooltip-inner {
+    background-color: white !important;
+    color: black !important;
+    z-index: 9999 !important;
+}
+.card{
+    background-color: transparent !important;
+    border-color: transparent !important;
+    border-bottom: transparent !important;
+    margin-top: 5em !important;
+    font-size: 85%;
+}
+.card-cascade {
+    top: -80px;
+}
+
+.d-flex {
+    border: transparent;
+}
+
+.table{
+    /*width: 100%;*/
+    align-content: center;
+    align-items: center;
+    margin: 0 auto;
+    table-layout: fixed;
+}
+
+.page-title{
+    width: 85%;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.page-title-header {
+    width: 85%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+#excel_icon_img{
+    position: relative;
+    left: 0%;
+    margin: auto;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+}
+
+.table th {
+    line-height: 1.5;
+    text-transform: uppercase;
+    cursor: default;
+}
+.fa-header-centered {
+    text-align: center;
+}
+fa{
+    font-size: 20px;
+    color: #e31937;
+    cursor: pointer;
+}
+fa:hover {
+    color: #a51228;
+}
+form fa {
+    font-size: medium;
+}
+
+td p, td, td p button, th {
+  padding: 0 !important;
+  margin: 0 auto !important;
+  text-align: center;
+  align-content: center;
+}
+td {
+    vertical-align: middle !important;
+    text-align-last: center;
+    text-align: center;
+    cursor: default;
+}
+#tableHeader th{
+    position: sticky;
+    top: 175px;
+    background: white;
+    z-index: 2;
+    border: none;
+}
+
+.th-xs {
+    text-align: center;
+    align-content: center;
+}
+
+.th-sm {
+    text-align: center;
+    align-content: center;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.th-lg {
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.language-buttons {
+    z-index: 1;
+    margin-right: 4em;
+    float: right;
+    display: flex;
+}
+
+.add-btn-primary1{
+    align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    color: buttontext;
+    background-color: buttonface;
+    box-sizing: border-box;
+    padding: 2px 6px 3px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: buttonface;
+    border-image: initial;
+    margin-left: 45%;
+    margin-top: 4%;
+}
+
+.dots{
+    width: 10%;
+    height: auto;
+    bottom: 95px;
+    right: 1px;
+    overflow: hidden;
+    position: fixed;
+}
+.column-fixed {
+    background-color: white;
+    position: fixed;
+    margin-top: 2em;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+#TitluId {
+    text-align: center;
+    cursor: default;
+}
+
+/*set dimension for mat form*/
+.mat-form-field {
+    width: 120px;
+    height: 10px;
+}
+
+/*Text in the modal for confirmation on member deactivation*/
+h4 {
+    text-align: center;
+}
+
+/*Button NO in the modal for confirmation on member deactivation*/
+#buttonNO {
+    left: 50%;
+    position: fixed;
+}
+
+/*Button YES in the modal for confirmation on member deactivation*/
+#buttonYES {
+    left: 30%;
+    position: relative;
+}
+.ten-percent {
+    width: 10%;
+    float: left;
+}
+
+.twenty-percent {
+    width: 20%;
+    float: left;
+}
+.fifty-percent{
+    width: 50%;
+    float: left;
+}
+
+.sixty-percent {
+    width: 60%;
+    float: left;
+}
+
+.eighty-percent {
+    width: 80%;
+    float: left;
+}
+
+.technology {
+    width: 300px;
+}
+
+.status {
+    width: 300px;
+}
+.mat-form-field-infix {
+    padding: .5em 0;
+    border-top: 0 solid transparent;
+}
+::ng-deep.mat-form-field-infix {
+    width: 120px !important;
+}
+#ButonId {
+    background-color: #a1c4d0;
+    border-color: #a1c4d0;
+}
+
+.hr.my-0 {
+    border-color: red;
+}
+.is-invalid {
+    color: #DC3545 !important;
+    font-weight: bolder !important;
+}
+/*set input date field border and background transparent start data*/
+#ngDatepicker {
+    border: transparent;
+    background-color: transparent;
+    width: 6rem;
+}
+
+/*set input date field border and background transparent end date*/
+#ngDatepickerEnd {
+    border: transparent;
+    background-color: transparent;
+    width: 6rem;
+}
+.pointer {
+    cursor: pointer;
+}
+.btn-primary {
+    background-color: #daecf2;
+    color: black;
+    position: relative;
+    left: 22%;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border-color: transparent;
+}
+
+div.marginDiv {
+    width: 100%;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+div.marginDiv > div.containerDiv {
+    width: 80%;
+    margin: auto;
+}
+div.marginDivTable {
+    width: 87%;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+@media (max-width: 1300px) {
+    div.marginDiv > div.containerDiv, .table, thead#tableHeader {
+        width: 100%;
+    }
+
+    ::ng-deep .dots {
+        display: none;
+    }
+
+    #TitluId {
+        font-size: x-large;
+    }
+}
+
+@media (max-width: 900px) {
+    .panel-login {
+        width: 65%;
+        float: left;
+    }
+    .dots {
+        display: none;
+    }
+    td, th {
+        padding: 0 !important;
+        font-size: smaller;
+    }
+    #tableHeader th{
+        top: 0px;
+    }
+    ::ng-deep.mat-form-field-infix {
+        width: 100% !important;
+    }
+
+    ::ng-deep.mat-form-field {
+        width: 100% !important;
+    }
+}
+
+#percentageTextBox{
+    width: 100%;
+}
+
+#dropDownPercentage{
+    width: 50%;
+}
+
+#dropDownStatus{
+    width: 70%;
+}
+
+.p-2.mr{
+    padding:0!important;
+}
+
+.alertCssclass {
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+    z-index: 2;
+}
+
+#closeButton:focus {
+     outline:0;
+ }
+#closeButton{
+    padding: 0.5rem 0.5rem;
+    margin: -1rem -1rem -1rem auto;
+}
+
+.errorHandler {
+    padding-left: 6%;
+}
+
+div.buttonsInline {
+    width: 50%;
+    margin: auto;
+}
+
+div.buttonsInline > p {
+    display: block;
+    float: left;
+    padding-left: 10px !important;
+}
+
+div.buttonsInline > p > .button {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+}
+
+div.buttonsInline > p > .button > img {
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+div.buttonsInline > p > .button > fa:hover {
+    color: #e31937;
+}
+
+.toggle-header {
+    width: 100%;
+    margin: 1em auto 0 auto;
+    padding: 0.6em;
+    position: relative;
+    background-color: #f4e8e9;
+    font-size: 110%;
+}
+.toggle-header-arrow {
+    position: absolute;
+    top: 20%;
+    right: 1em;
+}
+.toggle-content {
+    background-color: #f4e8e9;
+}

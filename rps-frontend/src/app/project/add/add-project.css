@@ -1,0 +1,23 @@
+.clear {
+    clear: both;
+}
+.jumbotron {
+    padding: 2rem 2rem;
+}
+.addProject {
+    margin: auto;
+    display: block;
+    cursor: pointer;
+}
+label{
+    padding-top: .5rem;
+    padding-bottom: .1rem;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .jumbotron {
+        padding: 1rem 2rem;
+    }
+
+}

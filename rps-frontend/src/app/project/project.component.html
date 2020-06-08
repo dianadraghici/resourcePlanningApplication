@@ -1,0 +1,234 @@
+<app-menu></app-menu>
+
+<html>
+<head>
+</head>
+
+<body>
+<!-- Search bar!-->
+
+<div class="card card-cascade narrower mt-5">
+    <div id="purpleGradient" class="view view-cascade gradient-card-header purple-gradient narrower py-4 mx-4
+                mb-3 d-flex justify-content-center align-items-center column-fixed">
+        <div class="marginDiv">
+            <div class="containerDiv">
+                <div class="ten-percent">
+                    <ngbd-add-project [statusList]="statusList" [percentList]="percentList"
+                                      (projectToBeSent)="receiveMessage($event)">
+                    </ngbd-add-project>
+                </div>
+                <div class="eighty-percent">
+                    <div class="twenty-percent">
+                        <label> </label>
+                    </div>
+                    <div class="sixty-percent">
+                        <h3 id="TitluId" class="white-text font-weight-bold text-uppercase mb-0">{{ "Projects" |
+                            translate }} </h3>
+                    </div>
+                    <div class="twenty-percent">
+                        <input type="search" [(ngModel)]="searchText" (ngModelChange)="search()" id="search"
+                               class="form-control" placeholder="{{ 'Search' | translate }}">
+                    </div>
+                </div>
+                <div class="ten-percent">
+                    <img id="excel_icon_img" data-placement="top" data-toggle="tooltip"
+                         title="{{ 'Export' | translate }}"   (click)="generateCsv()" src="assets/img/excel_icon.png"
+                         height="45">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--/Card image-->
+
+    <div class="px-5">
+
+        <!--Table-->
+        <table class="table table-hover table-responsive-md mb-0">
+                <thead id="tableHeader">
+                    <tr>
+                        <th class="th-sm">
+                            <span class="pointer" (click)="sortByColProjectCode()">{{"Code" | translate }}
+                                <i class="fa" [ngClass]="flagAscendingCode === 'unsorted' ? 'fa-sort' :
+                                flagAscendingCode === 'sorted-asc' ? 'fa-caret-down' : 'fa-caret-up'"></i>
+                            </span>
+                        </th>
+                        <th class="th-sm">
+                            <span class="pointer" (click)="sortByColProjectName()">{{ "Name" | translate }}
+                                <i class="fa" [ngClass]="flagAscendingName === 'unsorted' ? 'fa-sort' :
+                                flagAscendingName === 'sorted-asc' ? 'fa-caret-down' : 'fa-caret-up'"></i>
+                            </span>
+                        </th>
+                        <th class="th-lg">{{ "Certitude" | translate }}</th>
+                        <th class="th-lg">{{ "Status" | translate }}</th>
+                        <th class="th-lg">{{ "Start Date" | translate }}</th>
+                        <th class="th-sm">{{ "End Date" | translate }}</th>
+                        <th class="th-sm">{{ "Positions" | translate }}</th>
+                        <th class="th-sm">{{ "Assign" | translate }}</th>
+                    </tr>
+                </thead>
+            <tbody>
+            <tr *ngFor="let project of projectsFiltered; let i = index">
+                <td class="th-sm">
+                    <div [formGroup]="projectForm" class="d-flex justify-content-center">
+                        <div contenteditable="true" class="p-2 mr-2"
+                             [(ngModel)]="project.projectCode" formControlName="project_code_{{i}}"
+                             [ngClass]="{ 'is-invalid': projectCodeControl(i)?.errors}"
+                             (ngModelChange)="changeDetectorRef.detectChanges()"
+                             (input)="editOnClick(project,i)">
+                            {{project.projectCode}}
+                        </div>
+
+                        <img class="align-top" id="projectCodeRequiredError"
+                             *ngIf="!!projectCodeControl(i)?.errors?.required"
+                             [ngbTooltip]="errorMessages.PROJECT_CODE" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                        <img class="align-top" id="projectCodeMinlengthError"
+                             *ngIf="!!projectCodeControl(i)?.errors?.minlength"
+                             [ngbTooltip]="errorMessages.UNSATISFIED_MIN_LENGTH" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                        <img class="align-top" id="projectCodePatternError"
+                             *ngIf="!!projectCodeControl(i)?.errors?.pattern"
+                             [ngbTooltip]="errorMessages.INVALID_FORMAT" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                    </div>
+                </td>
+                <td class="th-sm">
+                    <div [formGroup]="projectForm" class="d-flex justify-content-center">
+                        <div contenteditable="true" class="p-2 mr-2"
+                             [(ngModel)]="project.projectName" formControlName="project_name_{{i}}"
+                             (ngModelChange)="changeDetectorRef.detectChanges()"
+                             [ngClass]="{ 'is-invalid': projectNameControl(i)?.errors}"
+                             (input)="editOnClick(project,i)">
+                            {{project.projectName}}
+                        </div>
+                        <img class="align-top" id="projectNameRequiredError"
+                             *ngIf="!!projectNameControl(i)?.errors?.required"
+                             [ngbTooltip]="errorMessages.PROJECT_NAME" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                        <img class="align-top" id="projectNameMinlengthError"
+                             *ngIf="!!projectNameControl(i)?.errors?.minlength"
+                             [ngbTooltip]="errorMessages.UNSATISFIED_MIN_LENGTH" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                        <img class="align-top" id="projectNamePatternError"
+                             *ngIf="!!projectNameControl(i)?.errors?.pattern"
+                             [ngbTooltip]="errorMessages.INVALID_FORMAT" [src]="validationError.img.path"
+                             [height]="validationError.img.height" >
+                    </div>
+                </td>
+                <td class="th-lg">
+                    <mat-form-field [formGroup]="projectForm">
+                        <!--Get percent ID from the project, then display description from percent list for the current project-->
+                        <mat-select id="dropDownPercentage"
+                                    [(ngModel)]="project.percentId" formControlName="project_percentId_{{i}}"
+                                    (ngModelChange)="changeDetectorRef.detectChanges()" (blur)="editOnClick(project,i)">
+                            <mat-option id="optionDropDownPercentage"
+                                        *ngFor="let s of percentList" [value]="s.id">{{s.description}} {{percentSymbol}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <img class="align-top" id="projectPercentIdError" *ngIf="!isPercentAndStatusConditionValidated(i)"
+                         [ngbTooltip]="errorMessages.UNSATISFIED_PERCENT_ID" [src]="validationError.img.path"
+                         [height]="validationError.img.height" >
+                </td>
+                <td class="th-lg">
+                    <mat-form-field [formGroup]="projectForm">
+                        <!--Get status ID from the project, then display description from status list for the current project-->
+                        <mat-select id="dropDownStatus" [(ngModel)]="project.statusId"
+                                    formControlName="project_statusId_{{i}}"
+                                    (ngModelChange)="changeDetectorRef.detectChanges()" (blur)="editOnClick(project,i)">
+                            <mat-option id="optionDropDownStatus"
+                                        *ngFor="let s of statusList" [value]="s.id">{{s.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <img class="align-top" id="projectStatusIdError" *ngIf="!isPercentAndStatusConditionValidated(i)"
+                         [ngbTooltip]="errorMessages.UNSATISFIED_STATUS_ID" [src]="validationError.img.path"
+                         [height]="validationError.img.height" >
+                </td>
+                <td class="th-lg" [formGroup]="projectForm">
+                    <input type="text" class="p-2 mr-2"
+                           ngbDatepicker #dstart="ngbDatepicker"
+                           id = "ngDatepicker"
+                           navigation="select" showWeekdays="true"
+                           showWeekNumbers="true" outsideDays="visible"
+                           [(ngModel)]="project.startDateModel"
+                           formControlName="project_startDateId_{{i}}"
+                           (ngModelChange)="changeDetectorRef.detectChanges()"
+                           (dateSelect)="editOnClick(project,i)">
+                    <fa name="calendar" (click)="dstart.toggle()" ngbTooltip="{{'Choose a date' | translate}}"></fa>
+                    <img class="align-top" id="projectStartDateIdError" *ngIf="isStartDateIdNull(i)"
+                         [ngbTooltip]="errorMessages.NULL_START_DATE_ID" [src]="validationError.img.path"
+                         [height]="validationError.img.height" >
+                    <img class="align-top" id="projectStarDateGraterThanEndDateError"
+                         *ngIf="isStarDateGraterThanEndDate(i)"
+                         [ngbTooltip]="errorMessages.START_DATE_ERROR_MESSAGE" [src]="validationError.img.path"
+                         [height]="validationError.img.height" >
+                </td>
+                <td class="th-sm" [formGroup]="projectForm">
+                    <input type="text" class="p-2 mr-2"
+                           ngbDatepicker #dend="ngbDatepicker"
+                           id="ngDatepickerEnd"
+                           navigation="select" showWeekdays="true"
+                           showWeekNumbers="true" outsideDays="visible"
+                           [(ngModel)]="project.endDateModel"
+                           formControlName="project_endDateId_{{i}}"
+                           (ngModelChange)="changeDetectorRef.detectChanges()"
+                           (dateSelect)="editOnClick(project,i)">
+                    <fa name="calendar" (click)="dend.toggle()" ngbTooltip="{{'Choose a date' | translate}}"></fa>
+                    <img class="align-top" id="projectEndtDateIdError" *ngIf="isEndDateIdNull(i)"
+                         [ngbTooltip]="errorMessages.NULL_END_DATE_ID" [src]="validationError.img.path"
+                         [height]="validationError.img.height" >
+
+                </td>
+                <td class="th-sm">
+                    <ngbd-project-positions [project]="project"></ngbd-project-positions>
+                </td>
+                <td class="th-sm">
+                    <ngbd-add-position-project (projectPositionToBeSent)="receiveMessagePosition($event)" align="center"
+                                               [project]="project" [percentList]="percentList"
+                                               [positionList]="positionList"></ngbd-add-position-project>
+                </td>
+            </tbody>
+            <!--Table body-->
+        </table>
+    </div>
+
+    <div class="px-2">
+        <!--Bottom Table UI-->
+        <div class="d-flex justify-content-center"></div>
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+    <!--Pagination -->
+    <nav class="my-4 py-5">
+        <ngb-pagination *ngIf="mainPagination.display"
+                        [rotate]="mainPagination.rotate"
+                        [collectionSize]="mainPagination.data.size"
+                        [maxSize]="mainPagination.maxPagesToDisplay"
+                        [pageSize]="mainPagination.maxPerPage"
+                        [(page)]="mainPagination.currentPage"
+                        [ellipses]="mainPagination.ellipses"
+                        [boundaryLinks]="mainPagination.boundaryLinks"
+                        [size]="mainPagination.size"
+                        (pageChange)="setActivePageForMainPagination($event)">
+        </ngb-pagination>
+        <ngb-pagination *ngIf="searchPagination.display"
+                        [rotate]="searchPagination.rotate"
+                        [collectionSize]="searchPagination.data.source.length"
+                        [maxSize]="searchPagination.maxPagesToDisplay"
+                        [pageSize]="searchPagination.maxPerPage"
+                        [(page)]="searchPagination.currentPage"
+                        [ellipses]="searchPagination.ellipses"
+                        [boundaryLinks]="searchPagination.boundaryLinks"
+                        [size]="searchPagination.size"
+                        (pageChange)="setActivePageForSearchPagination($event)">
+        </ngb-pagination>
+    </nav>
+</div>
+<!--/Pagination -->
+
+</body>
+</html>

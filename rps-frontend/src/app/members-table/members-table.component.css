@@ -1,0 +1,19 @@
+.table {
+    width: 85%;
+    position: relative;
+    top: 122px;
+}
+
+/* hide line from select box for TECHNOLOGY*/
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+tbody[_ngcontent-c1] {
+    overflow-scrolling: unset;
+}
+
+#tableHeader th {
+    top: 187px;
+}
+

@@ -1,0 +1,73 @@
+#mainContainerTableProj {
+    padding: 1%;
+    margin-right: 5%;
+}
+
+#search {
+    width: 65%;
+    margin-left: 20%;
+}
+#title{
+    margin-left: 11rem;
+    text-align: center;
+    cursor: default;
+}
+.header {
+    text-align: center;
+    margin-top: 40px;
+    position: fixed;
+    table-layout: fixed;
+    z-index: 1;
+    padding-bottom: 0.7rem !important;
+}
+.trBody {
+    width: 100%;
+    margin-top: 1%;
+}
+.mat-form-field {
+    float: left;
+    margin-left: 60%;
+    width: 100px;
+    text-align-last: center;
+    cursor: default;
+}
+.projectColor{
+    position: relative;
+    width: 5%;
+    padding: 8px !important;
+    border-bottom: 0.5rem solid white;
+}
+.projectName{
+    width: 5%;
+}
+
+#tableHeader{
+    overflow: hidden;
+    background-color: white;
+    table-layout: fixed;
+}
+.column-fixed{
+    margin-left: 5%;
+    margin-right: 10%;
+    margin-top: 0;
+    background-color: white;
+    overflow: hidden;
+    border-bottom: 3rem solid white;
+    border-top: 2rem solid white;
+}
+table {
+    width: 90%;
+}
+.td {
+    width: 70%;
+}
+
+#tooltipDetailsForProjects{
+    max-width: 200px !important;
+    width: 100%;
+}
+
+.spacing-tr-border{
+    border-top: 1rem solid white;
+    border-bottom: 0.7rem solid white;
+}

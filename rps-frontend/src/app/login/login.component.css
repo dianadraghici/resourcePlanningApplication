@@ -1,0 +1,187 @@
+.container {
+    padding-top: 10%;
+}
+
+#formFlex {
+    display: flex;
+    flex-flow: row;
+}
+
+#formFlex input {
+    width: 380px;
+    height: 40px;
+    margin: 15px;
+}
+
+#flexLabel {
+    padding-top: 25px;
+    color: #999999;
+}
+
+.panel-login {
+    border-color: #FFFFFF;
+}
+
+#login-form-link {
+    margin: 0 auto;
+}
+
+.panel-login > .panel-heading {
+    color: #FFFFFF;
+    background-color: #fff;
+    border-color: #FFFFFF;
+    text-align: center;
+}
+
+.panel-login > .panel-heading a {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 15px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.panel-login > .panel-heading a.active {
+    color: #e31937;
+    text-align: center;
+    font-size: 40px;
+}
+
+.panel-login > .panel-heading hr {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    clear: both;
+    border: 0;
+    height: 1px;
+}
+
+.panel-login input[type="text"], .panel-login input[type="email"], .panel-login input[type="password"] {
+    height: 45px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    transition: all 0.1s linear;
+}
+
+.panel-login input:hover,
+.panel-login input:focus {
+    outline: none;
+    border-color: #FFFFFF;
+}
+
+.panel {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.btn-login {
+    background-color: #e31937;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    height: auto;
+    font-weight: normal;
+    padding: 14px 0;
+    text-transform: uppercase;
+    border-color: #FFFFFF;
+}
+
+.btn-login:hover,
+.btn-login:focus {
+    color: #fff;
+    background-color: #991f3d;
+    border-color: #FFFFFF;
+}
+
+.btn-register {
+    background-color: #1CB94E;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 14px;
+    height: auto;
+    font-weight: normal;
+    padding: 14px 0;
+    text-transform: uppercase;
+    border-color: #1CB94A;
+}
+
+.btn-register:hover,
+.btn-register:focus {
+    color: #fff;
+    background-color: #1CA347;
+    border-color: #1CA347;
+}
+
+.colorgraph {
+    height: 3px;
+    border-top: 0;
+    background: #c4e17f;
+    border-radius: 10px;
+    background-image: -webkit-linear-gradient(left, #e31937, #ffffff 12.5%, #e31937 12.5%, #ffffff 25%, #e31937 25%, #ffffff 37.5%, #e31937 37.5%, #ffffff 50%, #e31937 50%, #ffffff 62.5%, #e31937 62.5%, #ffffff 75%, #e31937 75%, #ffffff 87.5%, #e31937 87.5%, #ffffff);
+    background-image: -moz-linear-gradient(left, #ffffff, #e31937 12.5%, #ffffff 12.5%, #e31937 25%, #ffffff 25%, #e31937 37.5%, #ffffff 37.5%, #e31937 50%, #ffffff 50%, #e31937 62.5%, #ffffff 62.5%, #e31937 75%, #ffffff 75%, #e31937 87.5%, #ffffff 87.5%, #ffffff);
+    background-image: -o-linear-gradient(left, #e31937, #ffffff 12.5%, #e31937 12.5%, #ffffff 25%, #e31937 25%, #ffffff 37.5%, #e31937 37.5%, #ffffff 50%, #e31937 50%, #ffffff 62.5%, #e31937 62.5%, #ffffff 75%, #e31937 75%, #ffffff 87.5%, #e31937 87.5%, #ffffff);
+    background-image: linear-gradient(to right, #ffffff, #e31937, #e31937, #e31937, #ffffff, #e31937, #e31937, #e31937, #ffffff, #e31937, #e31937 62.5%, #e31937, #ffffff, #e31937, #e31937, #ffffff);
+}
+
+.col-md-6.col-md-offset-3 {
+    margin: 0px 190px 0px;
+    display: block;
+}
+
+#login-form {
+    display: block;
+}
+
+#alerta {
+    color: #E61739;
+    text-align: center;
+}
+
+.language-buttons button {
+    background-color: transparent;
+    border: none;
+    font-size: 90%;
+    font-weight: 900;
+    color: #e31937;
+    cursor: pointer;
+}
+
+.language-buttons button:hover {
+    color: #a51228 !important;
+}
+
+.language-buttons button:focus {
+    outline: none;
+}
+
+.language-button-active {
+    color: #a51228 !important;
+}
+
+/*used for the div containing image logo*/
+.logoResponsive {
+    float: left;
+    position: fixed;
+    z-index: 4;
+    height: 16rem;
+    width: 24rem;
+    padding: 0;
+    top: 0;
+    left: 0;
+}
+
+/*used for the image logo*/
+.BorderLogo {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+@media (max-width: 1200px) {
+    #formFlex input {
+        width: 85%;
+    }
+}

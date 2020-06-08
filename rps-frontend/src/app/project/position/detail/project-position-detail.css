@@ -1,0 +1,16 @@
+.errorHandler {
+    padding-left: 6%;
+}
+
+/*Text in the modal for confirmation on project position deactivation*/
+h4 {
+    text-align: center;
+}
+.btn {
+    line-height: 1;
+}
+
+td{
+    padding-bottom: 1% !important;
+    padding-top: 1% !important;
+}

@@ -1,0 +1,159 @@
+<div *ngFor="let alert of alerts" class="alertCssclass">
+    <alert [type]="alert.type" [dismissible]="dismissible" [dismissOnTimeout]="3000">
+        {{ alert.msg }}
+    </alert>
+</div>
+<ng-template #addProjPopup id="addProjPopup">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="popup-title">{{ "Add Project" | translate }}</h6>
+            <button id="closeButton" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div>
+            <div class="errorHandler">
+                <img id="errorHandler" *ngIf="errorIsOcured"
+                     src="assets/img/validationError.png" height="20">
+                <img id="blankErrorHandler" *ngIf="!errorIsOcured"
+                     src="assets/img/blank.png" height="20" >
+                <output *ngIf="errorIsOcured">
+                    <div style="color: red" *ngIf="errorMessagesArray.length > 0">
+                        <div *ngFor="let e of errorMessagesArray">{{e}}</div>
+                    </div>
+                    <div *ngIf="errorMessage != undefined">{{errorMessage}}</div>
+                </output>
+
+            </div>
+            <div class="jumbotron">
+
+
+                <form name="addProjectForm" (ngSubmit)="f.form.valid && save($event)" #f="ngForm" novalidate>
+                    <div class="form-group">
+
+                        <div class="half">
+                            <label class="label-text" for="projectCode">{{ "Code" | translate }}: </label>
+                            <input id="projectCode" type="text" class="form-control" name="projectCode"
+                                   [(ngModel)]="project.projectCode"
+                                   #projectCode="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && projectCode.invalid }"
+                                   required minlength="2"/>
+                            <img id="codeError" *ngIf="f.submitted && projectCode.invalid"
+                                 [ngbTooltip]="errorMessages.PROJECT_CODE" src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="half">
+                            <label class="label-text" for="projectName">{{ "Name" | translate }}: </label>
+                            <input id="projectName" name="projectName" type="text" nameItem="item1" class="form-control"
+                                   [(ngModel)]="project.projectName"
+                                   #projectName="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }"
+                                   required minlength="1">
+                            <img id="projectNameError" *ngIf="f.submitted && projectName.invalid"
+                                 [ngbTooltip]="errorMessages.PROJECT_NAME" src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="half">
+                            <label class="label-text" for="projectCertitude">{{ "Certitude" | translate }}: </label>
+                            <select id="projectCertitude" name="projectCertitude"
+                                    [(ngModel)]="project.percentId" #projectCertitude="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && projectCertitude.invalid }"
+                                    class="form-control" required minlength="2">
+                                <option></option>
+                                <option *ngFor="let s of percentList" [ngValue]="s.id">{{s.description}}</option>
+                            </select>
+                            <img class="image" id="projectCertitudeError"
+                                 *ngIf="f.submitted && projectCertitude.invalid"
+                                 [ngbTooltip]="errorMessages.PROJECT_CERTITUDE"
+                                 src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+                        <div class="half">
+                            <label class="label-text" for="projectStatus">{{ "Status" | translate }}:</label>
+                            <select id="projectStatus" name="projectStatus"
+                                    [(ngModel)]="project.statusId" #projectStatus="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && projectStatus.invalid }"
+                                    class="form-control" required minlength="4">
+                                <option></option>
+                                <option *ngFor="let s of statusList" [ngValue]="s.id"
+                                        [disabled]="(s.id == 2 &&  projectCertitude.value != '10') ||
+                                            (s.id == 0 && projectCertitude.value != '0') ||
+                                            (s.id==1 && (projectCertitude.value=='0'||projectCertitude.value=='10')) ||
+                                            (s.id==3 && projectCertitude.value!='10')">
+                                    {{ s.description }}
+                                </option>
+                            </select>
+                            <img id="statusError" *ngIf="f.submitted && projectStatus.invalid"
+                                 [ngbTooltip]="errorMessages.PROJECT_STATUS"
+                                 src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+                        <div class="half">
+                            <label class="label-text" for="projectStartDate">{{ "Start Date" | translate }}:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                           name="projectStartDate" id="projectStartDate"
+                                           ngbDatepicker #dstart="ngbDatepicker"
+                                           navigation="select" showWeekdays="true"
+                                           showWeekNumbers="true" outsideDays="visible"
+                                           [ngClass]="{ 'is-invalid': f.submitted && startDateModel == undefined}"
+                                           [(ngModel)]="startDateModel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dstart.toggle()"
+                                                type="button">
+                                            <fa name="calendar"></fa>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="image" id="projectStartDateError"
+                                 *ngIf="f.submitted && startDateModel == undefined"
+                                 [ngbTooltip]="errorMessages.PROJECT_START_DATE"
+                                 src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+
+                        <div class="half">
+                            <label class="label-text" for="projectEndDate">{{ "End Date" | translate }}: </label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                           name="projectEndDate" id="projectEndDate"
+                                           ngbDatepicker #dend="ngbDatepicker"
+                                           navigation="select" showWeekdays="true"
+                                           showWeekNumbers="true" outsideDays="visible"
+                                           [ngClass]="{ 'is-invalid': f.submitted && endDateModel == undefined}"
+                                           [(ngModel)]="endDateModel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dend.toggle()"
+                                                type="button">
+                                            <fa name="calendar"></fa>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="image" id="projectEndDateError"
+                                 *ngIf="f.submitted && endDateModel == undefined"
+                                 [ngbTooltip]="errorMessages.PROJECT_END_DATE"
+                                 src="assets/img/validationError.png"
+                                 height="20">
+                        </div>
+                        <br>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="half">
+                        <input type="submit" name="add-submit" id="add-submit" tabindex="4" class="add-btn-primary1"
+                               value="{{'Save' | translate}}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<img class="addProject" data-placement="top" data-toggle="tooltip" title="{{ 'Add Project' | translate }}"
+     (click)="open(addProjPopup)" src="assets/img/add_icon.png" height="45">

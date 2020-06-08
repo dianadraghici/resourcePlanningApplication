@@ -1,0 +1,65 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+<div class="logoResponsive d-flex">
+    <img class="BorderLogo" src="assets/img/BorderLogo.jpg">
+</div>
+
+<div class="language-buttons">
+    <button (click)="setLang('fr')" class="{{lang=='fr'?'language-button-active':''}}">{{ 'FR' | translate }}</button>
+    <button (click)="setLang('en')" class="{{lang=='en'?'language-button-active':''}}">{{ 'EN' | translate }}</button>
+    <button (click)="setLang('ro')" class="{{lang=='ro'?'language-button-active':''}}">{{ 'RO' | translate }}</button>
+</div>
+
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+            <div class="panel-heading">
+                <div class="row">
+                    <a href="#" class="active" id="login-form-link"> {{ "Welcome to RPA!" | translate }}</a>
+                </div>
+                <hr>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form id="login-form" (submit)="loginUser($event)" method="post" role="form"
+                              #f="ngForm">
+                            <hr class="colorgraph">
+
+                            <div id="formFlex">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control"
+                                           placeholder="{{ 'Email' | translate }}" value="" required
+                                           [(ngModel)]="login.user" #user="ngModel">
+                                    <input type="password" name="password" id="password" tabindex="2"
+                                           class="form-control" placeholder="{{ 'Password' | translate }}"
+                                           [(ngModel)]="login.credential" #credential="ngModel">
+                                    <p id="alerta" value="block"
+                                       style="display: none">{{ "Login error" | translate }}</p>
+                                </div>
+                                <div id="flexLabel">
+                                    <label> @cgi.com </label>
+                                </div>
+                            </div>
+
+                            <hr class="colorgraph">
+                            <div class="form-group"><br>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4"
+                                               class="form-control btn btn-login"
+                                               value="{{ 'Log In' | translate }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

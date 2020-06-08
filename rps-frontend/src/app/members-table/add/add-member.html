@@ -1,0 +1,123 @@
+<div *ngIf="successMsg" class="alertCssclass">
+    <alert [type]="successMsg.type"
+           [dismissible]="dismissible"
+           [dismissOnTimeout]="3000">
+        {{ successMsg.msg }}
+    </alert>
+</div>
+<ng-template #addMemberPopup id="addMemberPopup">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="popup-title">{{ "Add Member" | translate }}</h6>
+            <button id="closeButton" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div>
+            <div class="jumbotron">
+                <alert *ngIf="errorMsg" class="small"
+                       [type]="errorMsg.type"
+                       [dismissible]="dismissible"
+                       [dismissOnTimeout]="4000">
+                    {{ errorMsg.msg }}
+                </alert>
+                <form name="addMemberForm" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <div class="half">
+                            <label class="label-text" for="staffNumber">{{ "Staff Number"}}: </label>
+                            <input id="staffNumber" type="text" class="form-control" name="staffNumber"
+                                   [(ngModel)]="member.staffNumber"
+                                   #staffNumber="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && staffNumber.invalid }"
+                                   required minlength="2"
+                                   pattern="^[\w-]+$"
+                            />
+                            <img *ngIf="staffNumber.touched && staffNumber?.errors?.required"
+                                 [ngbTooltip]="errorMessages.MEMBER_STAFF" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="staffNumber.touched && staffNumber?.errors?.minlength"
+                                 [ngbTooltip]="errorMessages.UNSATISFIED_MIN_LENGTH" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="staffNumber.touched && staffNumber?.errors?.pattern"
+                                 [ngbTooltip]="errorMessages.INVALID_FORMAT" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="half">
+                            <label class="label-text" for="lastName">{{ "Last Name" | translate }}: </label>
+                            <input id="lastName" name="lastName" type="text" class="form-control"
+                                   [(ngModel)]="member.lastName"
+                                   #lastName="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                                   required minlength="1"
+                                   pattern="^[a-zA-Z ,.'-]+$"
+                            />
+                            <img *ngIf="lastName.touched && lastName?.errors?.required"
+                                 [ngbTooltip]="errorMessages.MEMBER_LAST_NAME" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="lastName.touched && lastName?.errors?.minlength"
+                                 [ngbTooltip]="errorMessages.UNSATISFIED_MIN_LENGTH" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="lastName.touched && lastName?.errors?.pattern"
+                                 [ngbTooltip]="errorMessages.INVALID_FORMAT" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="half">
+                            <label class="label-text" for="firstName">{{ "First Name" | translate }}: </label>
+                            <input id="firstName" name="firstName" type="text" class="form-control invalid"
+                                   [(ngModel)]="member.firstName"
+                                   #firstName="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                                   required minlength="1"
+                                   pattern="^[a-zA-Z ,.'-]+$"
+                            >
+                            <img *ngIf="firstName.touched && firstName?.errors?.required"
+                                 [ngbTooltip]="errorMessages.MEMBER_FIRST_NAME" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="firstName.touched && firstName?.errors?.minlength"
+                                 [ngbTooltip]="errorMessages.UNSATISFIED_MIN_LENGTH" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                            <img *ngIf="firstName.touched && firstName?.errors?.pattern"
+                                 [ngbTooltip]="errorMessages.INVALID_FORMAT" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="half">
+                            <label for="memberTechnology" class="label-text">{{ "Technology" | translate }}:</label>
+                            <select id="memberTechnology" name="memberTechnology"
+                                    [(ngModel)]="member.technologyId" #memberTechnology="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && memberTechnology.invalid }"
+                                    class="form-control" required minlength="1">
+                                <option></option>
+                                <option *ngFor="let technology of technologyList" [ngValue]="technology.id">{{ technology.description }}
+                                </option>
+                            </select>
+                            <img class="image" id="statusError" *ngIf="memberTechnology.touched && memberTechnology.invalid"
+                                 [ngbTooltip]="errorMessages.MEMBER_TECHNOLOGY" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="comment">
+                            <label id="commentLabel" for="comment" class="label-text">{{ "Comment" | translate
+                                }}: </label>
+                            <textarea id="comment" name="comment" type="text" class="form-control"
+                                      [(ngModel)]="member.comment"
+                                      #commentId="ngModel"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="half">
+                        <input [disabled]="f.form.invalid" [ngClass]="f.form.invalid ? 'disabled' : ''" type="submit" name="add-submit" id="add-submit" tabindex="4" class="add-btn-primary1"
+                               value="{{ 'Save' | translate }}">
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<img class="addMember" data-placement="top" data-toggle="tooltip" title="{{ 'Add Member' | translate }}" (click)="openAddMemberModal(addMemberPopup)"
+     src="assets/img/add_icon.png" height="45">

@@ -1,0 +1,145 @@
+<div *ngIf="successMsg" class="alertCssclass">
+    <alert [type]="successMsg.type" [dismissible]="true" [dismissOnTimeout]="3000">
+        {{ successMsg.msg }}
+    </alert>
+</div>
+<ng-template #addMemberPosPopup id="addMemberPosPopup">
+    <div class="modal-content">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="popup-title">{{ "Assign Member Position" | translate}} {{member.firstName}}
+                    {{member.lastName}}</h6>
+                <button id="closeButton" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div *ngIf="isAnyError()" class="errorHandler">
+                <output style="color: red">
+                    <div *ngFor="let errorMsg of errorsOccurred">
+                        <img id="errorHandler" src="assets/img/validationError.png" height="20"/> {{errorMsg}}
+                    </div>
+                </output>
+            </div>
+
+            <div class="jumbotron">
+                <form name="addMemberPositionForm" (ngSubmit)="f.form.valid && save()" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <div class="half">
+                            <label for="projectId" class="label-text">{{"Project" | translate}}:</label>
+                            <select id="projectId" name="projectId"
+                                    (change)="onProjectChanged($event)"
+                                    [(ngModel)]="projectId"
+                                    #projectIdModel="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && projectIdModel.invalid }"
+                                    class="form-control" required>
+                                <option></option>
+                                <option *ngFor="let p of projectsList" value={{p.id}}>
+                                    {{ p.projectName }}-{{ p.projectCode }}
+                                </option>
+                            </select>
+                            <img id="projectIdError" *ngIf="f.submitted && projectIdModel.invalid"
+                                 ngbTooltip="Project is mandatory" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="half">
+                            <label for="projectPosition" class="label-text">{{"Available positions" | translate}}:
+                            </label>
+                            <select id="projectPosition" name="projectPosition"
+                                    (change)="onProjectPositionChanged($event)"
+                                    [(ngModel)]="memberPosition.projectPositionDTO.id"
+                                    #projectPositionModel="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && projectPositionModel.invalid }"
+                                    class="form-control" required>
+                                <option></option>
+                                <optgroup *ngFor="let positionName of currentPositionsSet" label="{{positionName}}">
+                                    <option *ngFor="let pp of positionsMappedByPositionName[positionName]" value="{{pp.id}}">
+                                        {{pp.percentDescription}}% {{ pp.startDateCalendarDTO.bop }} to
+                                        {{pp.endDateCalendarDTO.eop}}
+                                    </option>
+                                </optgroup>
+                            </select>
+                            <img id="projectPositionError" *ngIf="f.submitted && projectPositionModel.invalid"
+                                 ngbTooltip="Project position is mandatory" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="half">
+                            <label for="projectPositionPercentId" class="label-text">{{"Percent" | translate}}: </label>
+                            <select id="projectPositionPercentId" name="projectPositionPercent"
+                                    [(ngModel)]="memberPosition.percentId" #projectPositionPercentId="ngModel"
+                                    [ngClass]="{ 'is-invalid': f.submitted && projectPositionPercentId.invalid }"
+                                    class="form-control" required minlength="1">
+                                <option></option>
+                                <option *ngFor="let percent of percentList" value={{percent.id}}>{{percent.description}} %</option>
+                            </select>
+                            <img id="projectPercentError" *ngIf="f.submitted && projectPositionPercentId.invalid"
+                                 ngbTooltip="Percent is mandatory" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="half">
+                            <label for="memberPosStartDate" class="label-text">{{"Start Date" | translate}}:</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                           name="memberPosStartDate" id="memberPosStartDate"
+                                           ngbDatepicker #dstart="ngbDatepicker"
+                                           navigation="select" showWeekdays="true"
+                                           showWeekNumbers="true" outsideDays="visible"
+                                           [(ngModel)]="startDateModel" required
+                                           [ngClass]="{ 'is-invalid': f.submitted && startDateIdModel.invalid }"
+                                           #startDateIdModel="ngModel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dstart.toggle()"
+                                                type="button">
+                                            <fa name="calendar"></fa>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <img id="startDateError" *ngIf="f.submitted && startDateIdModel.invalid"
+                                 ngbTooltip="Start date is mandatory" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="half">
+                            <label for="memberPosEndDate" class="label-text">{{"End Date" | translate}}: </label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                           name="memberPosEndDate" id="memberPosEndDate"
+                                           ngbDatepicker #dend="ngbDatepicker"
+                                           navigation="select" showWeekdays="true"
+                                           showWeekNumbers="true" outsideDays="visible"
+                                           [(ngModel)]="endDateModel" required
+                                           [ngClass]="{ 'is-invalid': f.submitted && endDateIdModel.invalid }"
+                                           #endDateIdModel="ngModel">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dend.toggle()"
+                                                type="button">
+                                            <fa name="calendar"></fa>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <img id="endDateError" *ngIf="f.submitted && endDateIdModel.invalid"
+                                 ngbTooltip="End date is mandatory" src="assets/img/validationError.png"
+                                 height="20" class="errorImage">
+                        </div>
+                        <br>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="half">
+                        <input type="submit" name="add-submit" id="add-submit" tabindex="4" class="add-btn-primary1"
+                               value="{{'Save' | translate}}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<p data-placement="top" data-toggle="tooltip" title="{{ 'Assign positions' | translate }}">
+    <fa [name]="'fa fa-address-book'" data-toggle="modal"
+        data-target="#viewMemberPositions" (click)="open(addMemberPosPopup)">
+    </fa>
+</p>

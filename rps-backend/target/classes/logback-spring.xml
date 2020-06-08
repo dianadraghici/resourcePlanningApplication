@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProfile name="dev">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %magenta([%thread]) %-5level %M %logger{36} - %msg%n </pattern>
+            </encoder>
+        </appender>
+        <root level="info">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+    <springProfile name="integration">
+        <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+        <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level %logger{36}.%M - %msg%n</Pattern>
+
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- daily rollover -->
+                <fileNamePattern>${LOGS_INTEG}/rps_integration.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+                <!-- keep 30 days' worth of history -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+        <root level="info">
+            <appender-ref ref="ROLLING-FILE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="recette">
+        <include resource="org/springframework/boot/logging/logback/file-appender.xml" />
+        <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %-5level %logger{36}.%M - %msg%n</Pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!-- daily rollover -->
+                <fileNamePattern>${LOGS_REC}/rps_recette.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+                <!-- keep 30 days' worth of history -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+        <root level="info">
+            <appender-ref ref="ROLLING-FILE" />
+        </root>
+    </springProfile>
+
+</configuration>

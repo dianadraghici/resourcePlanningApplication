@@ -1,0 +1,30 @@
+.clear {
+    clear: both;
+}
+label{
+    padding-top: .5rem;
+    margin: 0;
+}
+
+.comment {
+    width: 100%;
+    padding: 5px;
+}
+
+.addMember {
+    margin: auto;
+    display: block;
+    cursor: pointer;
+}
+
+input.disabled {
+    pointer-events:none;
+    color:#AAA;
+    background:#DDD;
+}
+
+@media (max-width: 900px){
+    .jumbotron {
+        padding: 1rem 2rem;
+    }
+}

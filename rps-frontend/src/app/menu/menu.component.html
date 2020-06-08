@@ -1,0 +1,65 @@
+<div class="logoResponsive d-flex">
+    <img class="BorderLogo" src="assets/img/BorderLogo.jpg">
+</div>
+<!--Navigation Start-->
+<nav class="navigation">
+    <div class="language-buttons">
+        <button (click)="setLang('fr')" class="{{lang=='fr'?'language-button-active':''}}">{{ 'FR' | translate }}</button>
+        <button (click)="setLang('en')" class="{{lang=='en'?'language-button-active':''}}">{{ 'EN' | translate }}</button>
+        <button (click)="setLang('ro')" class="{{lang=='ro'?'language-button-active':''}}">{{ 'RO' | translate }}</button>
+        <button class="logoutBtn"  (click)="logoutUser()">Logout</button>
+    </div>
+
+    <ul>
+        <li>
+            <a routerLink="/home"
+               routerLinkActive="active"
+               (mouseover)="$event.stopPropagation(); myDrop.close(); myDrop2.close();">
+                {{ 'Home' | translate }}
+            </a>
+        </li>
+        <li class="d-inline-block" ngbDropdown #myDrop="ngbDropdown" placement="bottom">
+            <a routerLink="/members-table"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"
+               id="dropdownBasic2" ngbDropdownAnchor
+               (mouseover)="$event.stopPropagation(); myDrop.open(); myDrop2.close();">
+                {{ 'Members' | translate }}
+            </a>
+            <p ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                <button routerLink="/members-table/deactivated" routerLinkActive="active" class="dropdown-item">
+                    {{ 'Inactive' | translate }}
+                </button>
+            </p>
+
+        </li>
+        <li>
+            <a routerLink="/projects"
+               routerLinkActive="active"
+                    (mouseover)="$event.stopPropagation(); myDrop.close(); myDrop2.close();">
+                {{ 'Projects' | translate }}
+            </a>
+        </li>
+
+        <li class="d-inline-block" ngbDropdown #myDrop2="ngbDropdown" placement="bottom">
+            <a id="dropdownBasic3" ngbDropdownAnchor
+               (mouseover)="$event.stopPropagation(); myDrop2.open(); myDrop.close();">
+                {{ 'Graphics' | translate }}
+            </a>
+            <p ngbDropdownMenu aria-labelledby="dropdownBasic3">
+                <button routerLink="/graphics/scheduleMembers" routerLinkActive="active" class="dropdown-item">
+                    {{ 'Members Graphic' | translate }}
+                </button>
+                <button routerLink="/graphics/scheduleProjects" routerLinkActive="active" class="dropdown-item">
+                    {{ 'Projects Graphic' | translate }}
+                </button>
+            </p>
+        </li>
+
+    </ul>
+</nav>
+
+<br>
+<br>
+<br>
+<!--Navigation End-->

@@ -1,0 +1,23 @@
+<body>
+<div class="tile">
+
+    <div class="login-container">
+        <section class="login" id="login">
+            <header>
+
+                <h4></h4>
+            </header>
+            <form (submit)="registerUser($event)">
+                <input type="text" class="login-input" placeholder="{{ 'Email' | translate }}" required autofocus/>
+                <input type="password" class="login-input" placeholder="{{ 'Password' | translate }}" required/>
+                <div class="submit-container">
+                    <input type="submit" class = "login-button" value="{{ 'Register' | translate }}">
+                </div>
+
+            </form>
+        </section>
+
+    </div>
+
+</div>
+</body>

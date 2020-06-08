@@ -1,0 +1,21 @@
+.table {
+    width: 85%;
+    position: relative;
+    top: 122px;
+}
+/* hide line from select box for CERTITUDE and STATUS*/
+::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+tbody[_ngcontent-c1] {
+    overflow-scrolling: unset;
+}
+
+td{
+    padding: .35rem !important;
+}
+
+.column-fixed{
+     padding-top: 2rem !important;
+ }

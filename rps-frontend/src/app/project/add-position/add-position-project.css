@@ -1,0 +1,19 @@
+#projectPercentError{
+    padding-left: 5px;
+}
+
+.clear {
+    clear: both;
+}
+
+label{
+    padding-top: .5rem;
+    padding-bottom: .1rem;
+    margin: 0;
+}
+
+.btn-danger,
+.btn-danger:hover {
+    border-color: transparent !important;
+    background: transparent none !important;
+}

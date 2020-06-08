@@ -1,0 +1,53 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<app-menu></app-menu>
+
+<div id="mainContainerTableProj">
+    <table class="column-fixed">
+        <tr>
+            <div class="twenty-percent">
+                <mat-form-field>
+                    <mat-select [(ngModel)]="quarterYearModel" placeholder="{{ 'Year/Quarter' | translate }}">
+                        <mat-option *ngFor="let k of keysCalendar" [value]="k">{{k}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="fifty-percent">
+                <h3 id="title" class="white-text font-weight-bold text-uppercase mb-0">{{ "Members Graphic" |
+                    translate }} </h3>
+            </div>
+            <div class="twenty-percent">
+                <input type="search" [(ngModel)]="searchText" (ngModelChange)="search()" id="search"
+                       class="form-control" placeholder="{{'Search' | translate}}">
+            </div>
+        </tr>
+    </table>
+
+    <table *ngIf="calendar != undefined" style="margin-top: 6rem;">
+        <thead id="tableHeader">
+        <tr>
+            <th class="header"> {{ "Members" | translate }}</th>
+            <th class="members" *ngFor="let cal of calendar[quarterYearModel]" id="dates">
+                {{cal.bop | date: 'dd/MM'}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="trBody" *ngFor="let member of search()">
+            <td class="members" *ngIf="(member.firstName.length<18); else elseBlock">{{member.firstName}}
+                {{resetId()}}
+            </td>
+            <ng-template #elseBlock>
+                <td id="else">{{member.firstName}}</td>
+            </ng-template>
+            <td class="members" id="{{ idColumnNumber + '-' + member.firstName }}"
+                *ngFor="let cal of calendar[quarterYearModel]">
+                <div id="tooltipDetailsForMembers"
+                     ngbTooltip="{{getTooltipDetailsForMembers(member.firstName, cal) | translate}}"
+                     style="display: block; height: 100%; position: absolute; top: 0; left: 0">
+                </div>
+                {{getColor(member.firstName, cal) | async}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
