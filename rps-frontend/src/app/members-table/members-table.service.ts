@@ -15,7 +15,7 @@ export class MembersTableService {
 
     constructor(private http: HttpClient) {}
 
-    public getActiveMembers() {
+    public getActiveMembers(): Observable<Member[]> {
         return this.http.get<Member[]>(this.memberServiceUrl + Constants.GET_ACTIVE_MEMBERS, {withCredentials: true});
     }
 

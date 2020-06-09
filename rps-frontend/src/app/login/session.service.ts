@@ -1,68 +1,67 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Constants} from "../utils/utils.constants";
 import {CookieService} from "ngx-cookie-service";
 import {CustomErrorHandlerService} from "../global-error-handler.service";
 import {CommonServicesService} from "../utils/common-services.service";
 import {MembersTableService} from "../members-table/members-table.service";
 import {interval, Observable, Subscription} from "rxjs";
-import {switchMap, takeWhile, tap} from "rxjs/operators";
+import {catchError, switchMap, takeWhile, tap} from "rxjs/operators";
 
 
 @Injectable()
 export class SessionService {
-    private alive: boolean; // used to unsubscribe from the TimerObservable// when OnDestroy is called.
-    private interval: number;
     private userUrlLogin = Constants.LOGIN_CONTROLLER;
     private userUrlLogout = Constants.LOGOUT_CONTROLLER;
-    private startPingBackendSideSubscription: Subscription;
 
-    constructor(private http: HttpClient, private cookieService: CookieService,
+    constructor(private _http: HttpClient, private cookieService: CookieService,
                 private customErrorHandlerService: CustomErrorHandlerService,
-                public commonService: CommonServicesService,
-                private membersTableService: MembersTableService) {
-        this.alive = true;
-        this.interval = 60000;
-        this.pingBackendSide('SUBSCRIBE');
+                public commonService: CommonServicesService) {}
+
+    public clientId = 'newClient';
+    public redirectUri = 'http://localhost:8089/';
+
+    retrieveToken(code) {
+        let params = new URLSearchParams();
+        params.append('grant_type','authorization_code');
+        params.append('client_id', this.clientId);
+        params.append('client_secret', 'newClientSecret');
+        params.append('redirect_uri', this.redirectUri);
+        params.append('code',code);
+
+        let headers =
+            new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8'});
+
+        this._http.post('http://localhost:8080',
+            params.toString(), { headers: headers })
+            .subscribe(
+                data => this.saveToken(data),
+                err => alert('Invalid Credentials'));
     }
 
-    public login(login) {
-        this.alive = true;
-        this.pingBackendSide('SUBSCRIBE');
-        return this.http.post(this.userUrlLogin, login, {withCredentials: true})
+    saveToken(token) {
+        var expireDate = new Date().getTime() + (1000 * token.expires_in);
+        this.cookieService.set("access_token", token.access_token, expireDate);
     }
 
-    public logout() {
-        this.alive = false;
-        this.pingBackendSide('UNSUBSCRIBE');
-        return this.http.post(this.userUrlLogout, null).pipe(tap(
-            () => this.commonService.deleteCookies(),
-            error => {
-                this.customErrorHandlerService.handleError(error);
-                this.commonService.deleteCookies();
-            }));
+    getResource(resourceUrl) : Observable<any> {
+        var headers = new HttpHeaders({
+            'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+            'Authorization': 'Bearer '+this.cookieService.get('access_token')});
+        return this._http.get(resourceUrl, { headers: headers })
+            .pipe(
+                catchError(
+                    (error:any) => Observable.throw(error.json().error || 'Server error')
+                )
+            );
     }
 
-    public isAuthenticated() {
-        return !!this.cookieService.check('JSESSIONID');
+    checkCredentials() {
+        return this.cookieService.check('access_token');
     }
 
-    public startPingBackendSide(): Observable<string> {
-        return interval(this.interval).pipe(
-            takeWhile(() => this.alive),
-            switchMap(() => this.membersTableService.checkBackendHealth()),
-            tap(console.log, error => {
-                this.alive = false;
-                this.customErrorHandlerService.handleError(error);
-            }));
-    }
-
-    private pingBackendSide(action: 'SUBSCRIBE' | 'UNSUBSCRIBE'): void {
-        if (action === 'SUBSCRIBE') {
-            if (!!this.startPingBackendSideSubscription) this.startPingBackendSideSubscription.unsubscribe();
-            this.startPingBackendSideSubscription = this.startPingBackendSide().subscribe();
-        } else if (action === 'UNSUBSCRIBE') {
-            if (!!this.startPingBackendSideSubscription) this.startPingBackendSideSubscription.unsubscribe();
-        }
+    logout() {
+        this.cookieService.delete('access_token');
+        window.location.reload();
     }
 }
