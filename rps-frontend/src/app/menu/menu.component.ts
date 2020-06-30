@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "../utils/translate.service";
-import {SessionService} from "../login/session.service";
 import {Router} from "@angular/router";
+import { AuthenticationService } from '../login/authentication.service';
 
 @Component({
     selector: 'app-menu',
@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
 
     lang: string;
     constructor(private translate: TranslateService,
-                private loginService: SessionService,
+                private loginService: AuthenticationService,
                 private router: Router) {
     }
 
@@ -27,10 +27,6 @@ export class MenuComponent implements OnInit {
     }
 
     logoutUser() {
-        this.loginService.logout().subscribe(
-            isSuccess => {
-                this.router.navigate(['login']);
-            }
-        );
+        this.loginService.logout('Logout');
     }
 }

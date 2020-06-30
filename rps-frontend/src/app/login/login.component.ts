@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from "../utils/translate.service";
 import {Login} from "../models/login.model";
-import {SessionService} from "./session.service";
+import { AuthenticationService } from './authentication.service';
 
 @Component({
     selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private loginService: SessionService,
+                private loginService: AuthenticationService,
                 private translate: TranslateService) {
     }
 
@@ -42,14 +42,7 @@ export class LoginComponent implements OnInit {
         this.login.user = e.target.elements[0].value;
         this.login.credential = e.target.elements[1].value;
 
-        this.loginService.login(this.login).subscribe(
-            isSuccess => {
-                this.router.navigateByUrl(this.returnUrl);
-            },
-            isError => {
-                document.getElementById("alerta").style.display = "block" ;
-            }
-        );
+        this.loginService.login(this.login.user, this.login.credential);
     }
 
 }

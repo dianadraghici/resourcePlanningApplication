@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-08T09:32:12+0300",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 13.0.2 (Oracle Corporation)"
+    date = "2020-06-26T14:39:54+0300",
+    comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.22.0.v20200530-2032, environment: Java 1.8.0_221 (Oracle Corporation)"
 )
 @Component
 public class CalendarMapperImpl implements CalendarMapper {
@@ -23,14 +23,6 @@ public class CalendarMapperImpl implements CalendarMapper {
 
         CalendarDTO calendarDTO = new CalendarDTO();
 
-        calendarDTO.setId( calendarEntity.getId() );
-        calendarDTO.setFiscalYear( calendarEntity.getFiscalYear() );
-        calendarDTO.setPeriod( calendarEntity.getPeriod() );
-        calendarDTO.setWeek( calendarEntity.getWeek() );
-        calendarDTO.setBop( calendarEntity.getBop() );
-        calendarDTO.setEop( calendarEntity.getEop() );
-        calendarDTO.setQuarter( calendarEntity.getQuarter() );
-
         return calendarDTO;
     }
 
@@ -41,14 +33,6 @@ public class CalendarMapperImpl implements CalendarMapper {
         }
 
         CalendarEntity calendarEntity = new CalendarEntity();
-
-        calendarEntity.setId( calendarDTO.getId() );
-        calendarEntity.setFiscalYear( calendarDTO.getFiscalYear() );
-        calendarEntity.setPeriod( calendarDTO.getPeriod() );
-        calendarEntity.setWeek( calendarDTO.getWeek() );
-        calendarEntity.setBop( calendarDTO.getBop() );
-        calendarEntity.setEop( calendarDTO.getEop() );
-        calendarEntity.setQuarter( calendarDTO.getQuarter() );
 
         return calendarEntity;
     }

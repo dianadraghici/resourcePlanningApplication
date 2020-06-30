@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-08T09:32:12+0300",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 13.0.2 (Oracle Corporation)"
+    date = "2020-06-26T14:39:54+0300",
+    comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.22.0.v20200530-2032, environment: Java 1.8.0_221 (Oracle Corporation)"
 )
 @Component
 public class ParametersMapperImpl implements ParametersMapper {
@@ -23,10 +23,6 @@ public class ParametersMapperImpl implements ParametersMapper {
 
         ParametersDTO parametersDTO = new ParametersDTO();
 
-        parametersDTO.setType( parameterEntity.getType() );
-        parametersDTO.setId( parameterEntity.getId() );
-        parametersDTO.setDescription( parameterEntity.getDescription() );
-
         return parametersDTO;
     }
 
@@ -37,10 +33,6 @@ public class ParametersMapperImpl implements ParametersMapper {
         }
 
         ParametersEntity parametersEntity = new ParametersEntity();
-
-        parametersEntity.setType( parameterDTO.getType() );
-        parametersEntity.setId( parameterDTO.getId() );
-        parametersEntity.setDescription( parameterDTO.getDescription() );
 
         return parametersEntity;
     }

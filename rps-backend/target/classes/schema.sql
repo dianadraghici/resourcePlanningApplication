@@ -101,7 +101,7 @@ CREATE TABLE `user` (
                       `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                       `email` varchar(255) NOT NULL,
                       `password` varchar(255) NOT NULL,
-                      `parola` varchar(255) DEFAULT NULL
+                      `role` varchar(255) DEFAULT 'USER'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
@@ -366,8 +366,8 @@ INSERT INTO `parameters` (`type`, `id`, `description`) VALUES
 
 -- --------------------------------------------------------
 
-INSERT INTO `user` (`id`, `email`, `password`, `parola`) VALUES
-(1, 'a', 'a', NULL);
+INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
+(1, 'a', '$2y$12$sLJkB1eU5hv9G3bjQxyQfuv/WvDL66LvupL8wVJosF8NA2KvVe6kW', 'USER');
 
 -- ---------------------------------------------------------------
 

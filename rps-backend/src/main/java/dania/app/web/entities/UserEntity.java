@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "email", "password"})
+@EqualsAndHashCode(of = {"id", "email", "password", "role"})
 @Entity
 @Table(name = "user", schema = "planification", catalog = "")
 public class UserEntity {
@@ -21,5 +21,7 @@ public class UserEntity {
 
     private String email;
     private String password;
+
+    private String role;
 
 }

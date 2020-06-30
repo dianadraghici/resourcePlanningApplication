@@ -6,7 +6,11 @@ export const environment = {
     integration: false,
     recette: false,
     production: false,
-    BACKEND_BASE_URL: 'http://localhost:8080/'
+    BACKEND_BASE_URL: 'http://localhost:8080/',
+    loginUrl: 'http://localhost:8080/oauth/token',
+    signinUrl: 'http://localhost:8080/signin',
+    clientId: 'glee-o-meter',
+    clientSecret: 'secret'
 };
 
 /*

@@ -44,7 +44,6 @@ import {ScheduleProjectsComponent} from './schedule-projects/schedule-projects.c
 import {ContenteditableModule} from "ng-contenteditable";
 import {ErrorMessages} from "./utils/error.messages";
 import {GraphicsComponent} from './graphics/graphics.component';
-import {SessionService} from "./login/session.service";
 import {CookieService} from "ngx-cookie-service";
 import {AuthGuard} from "./guards/auth-guard.service";
 import {DeactivatedMembersTableComponent} from "./members-table/deactivated-members/deactivated-members-table.component";
@@ -54,6 +53,7 @@ import {PageNotFoundComponent} from "./404NotFound/page-not-found.component";
 import {AlertModule} from 'ngx-bootstrap/alert';
 import {CustomErrorHandlerService} from "./global-error-handler.service";
 import {MembersTableResolver} from "./members-table/members-table.resolver";
+import { JwtModule } from '@auth0/angular-jwt';
 
 export function setupTranslateFactory(
     service: TranslateService): Function {
@@ -107,7 +107,7 @@ export function setupTranslateFactory(
         ProjectService,
         UserService,
         CalendarService,
-        SessionService,
+        JwtModule,
         MembersTableService,
         TranslateService,
         CommonServicesService,

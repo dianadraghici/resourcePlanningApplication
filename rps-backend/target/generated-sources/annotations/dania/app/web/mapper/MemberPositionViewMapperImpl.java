@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-06-08T09:32:12+0300",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 13.0.2 (Oracle Corporation)"
+    date = "2020-06-26T14:39:54+0300",
+    comments = "version: 1.2.0.Final, compiler: Eclipse JDT (IDE) 3.22.0.v20200530-2032, environment: Java 1.8.0_221 (Oracle Corporation)"
 )
 @Component
 public class MemberPositionViewMapperImpl implements MemberPositionViewMapper {
@@ -23,18 +23,6 @@ public class MemberPositionViewMapperImpl implements MemberPositionViewMapper {
 
         MemberPositionViewDTO memberPositionViewDTO = new MemberPositionViewDTO();
 
-        memberPositionViewDTO.setId( memberPositionViewEntity.getId() );
-        memberPositionViewDTO.setLastName( memberPositionViewEntity.getLastName() );
-        memberPositionViewDTO.setFirstName( memberPositionViewEntity.getFirstName() );
-        memberPositionViewDTO.setIdProjectPositionFk( memberPositionViewEntity.getIdProjectPositionFk() );
-        memberPositionViewDTO.setPercentPosition( memberPositionViewEntity.getPercentPosition() );
-        memberPositionViewDTO.setPercentMember( memberPositionViewEntity.getPercentMember() );
-        memberPositionViewDTO.setPercentProject( memberPositionViewEntity.getPercentProject() );
-        memberPositionViewDTO.setStatusProject( memberPositionViewEntity.getStatusProject() );
-        memberPositionViewDTO.setIdCalendarStartDateFk( memberPositionViewEntity.getIdCalendarStartDateFk() );
-        memberPositionViewDTO.setIdCalendarEndDateFk( memberPositionViewEntity.getIdCalendarEndDateFk() );
-        memberPositionViewDTO.setProjectName( memberPositionViewEntity.getProjectName() );
-
         return memberPositionViewDTO;
     }
 
@@ -45,18 +33,6 @@ public class MemberPositionViewMapperImpl implements MemberPositionViewMapper {
         }
 
         MemberPositionViewEntity memberPositionViewEntity = new MemberPositionViewEntity();
-
-        memberPositionViewEntity.setId( memberPositionViewDTO.getId() );
-        memberPositionViewEntity.setLastName( memberPositionViewDTO.getLastName() );
-        memberPositionViewEntity.setFirstName( memberPositionViewDTO.getFirstName() );
-        memberPositionViewEntity.setIdProjectPositionFk( memberPositionViewDTO.getIdProjectPositionFk() );
-        memberPositionViewEntity.setPercentPosition( memberPositionViewDTO.getPercentPosition() );
-        memberPositionViewEntity.setPercentMember( memberPositionViewDTO.getPercentMember() );
-        memberPositionViewEntity.setPercentProject( memberPositionViewDTO.getPercentProject() );
-        memberPositionViewEntity.setStatusProject( memberPositionViewDTO.getStatusProject() );
-        memberPositionViewEntity.setIdCalendarStartDateFk( memberPositionViewDTO.getIdCalendarStartDateFk() );
-        memberPositionViewEntity.setIdCalendarEndDateFk( memberPositionViewDTO.getIdCalendarEndDateFk() );
-        memberPositionViewEntity.setProjectName( memberPositionViewDTO.getProjectName() );
 
         return memberPositionViewEntity;
     }

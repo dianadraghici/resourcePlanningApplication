@@ -26,6 +26,7 @@
     "@angular/platform-browser": "^6.1.10",
     "@angular/platform-browser-dynamic": "^6.1.10",
     "@angular/router": "^6.1.10",
+    "@auth0/angular-jwt": "^4.2.0",
     "@ng-bootstrap/ng-bootstrap": "^3.3.1",
     "angular-datatables": "^0.6.4",
     "angular-font-awesome": "^3.1.2",
